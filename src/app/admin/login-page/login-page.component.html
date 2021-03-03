@@ -1,0 +1,68 @@
+<form
+  class="card"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <h2>Login to Admin page</h2>
+
+  <div
+    class="form-control"
+    [ngClass]="{
+      invalid: form.get('email').touched && form.get('email').invalid
+    }"
+  >
+    <label for="email">Email:</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+    >
+    <div
+      class="validation"
+      *ngIf="form.get('email').touched && form.get('email').invalid"
+    >
+      <small
+        *ngIf="form.get('email').errors.required"
+      >Email is required</small>
+
+      <small
+        *ngIf="form.get('email').errors.email"
+      >Email is not valid</small>
+    </div>
+  </div>
+
+  <div
+    class="form-control"
+    [ngClass]="{
+      invalid: form.get('password').touched && form.get('password').invalid
+    }"
+  >
+    <label for="password">Password:</label>
+    <input
+      id="password"
+      type="password"
+      formControlName="password"
+    >
+    <div
+      class="validation"
+      *ngIf="form.get('password').touched && form.get('password').invalid"
+    >
+      <small
+        *ngIf="form.get('password').errors.required"
+      >Password is required</small>
+
+      <small
+        *ngIf="form.get('password').errors.minlength"
+      >
+        Password must be more than {{ form.get('password').errors.minlength.requiredLength }} symbols.
+        Now {{ form.get('password').errors.minlength.actualLength }}.
+      </small>
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="form.invalid"
+  >Login</button>
+</form>
