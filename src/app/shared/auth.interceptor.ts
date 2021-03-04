@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Observable, throwError} from 'rxjs';
 import {AuthService} from '../admin/shared/services/auth.service';
 import {Router} from '@angular/router';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
@@ -24,9 +24,6 @@ export class AuthInterceptor implements HttpInterceptor{
     }
     return next.handle(req)
       .pipe(
-        tap(() => {
-          console.log('Interceptor');
-        }),
         catchError((err: HttpErrorResponse) => {
           if (err.status === 401) {
             this.auth.logout();
