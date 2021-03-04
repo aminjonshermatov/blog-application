@@ -1,22 +1,27 @@
-<div class="post">
-  <div class="header">
-    <h1>Post title</h1>
+<div
+  *ngIf="post$ | async as post; else loading"
+>
+  <div class="post">
+    <div class="header">
+      <h1>{{ post.title }}</h1>
 
-    <button
-      class="btn btn-link"
-      routerLink="/"
-    >Go home</button>
-  </div>
+      <button
+        class="btn btn-link"
+        routerLink="/"
+      >Go home</button>
+    </div>
 
-  <div class="info">
-    <strong>Author</strong>
-    <small>12.11.2010</small>
-  </div>
+    <div class="info">
+      <strong>{{ post.author }}</strong>
+      <small>{{ post.date | date: 'medium': null: 'ru' }}</small>
+    </div>
 
-  <div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aliquid amet cupiditate ea excepturi facilis fugit ipsam laborum molestias, natus nemo officia omnis quibusdam quis quos ratione sit unde veritatis voluptatibus. Ad assumenda autem consequatur esse eveniet facilis libero minus nesciunt obcaecati, quod quos, ratione sed sint ut vel.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aliquid amet cupiditate ea excepturi facilis fugit ipsam laborum molestias, natus nemo officia omnis quibusdam quis quos ratione sit unde veritatis voluptatibus. Ad assumenda autem consequatur esse eveniet facilis libero minus nesciunt obcaecati, quod quos, ratione sed sint ut vel.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aliquid amet cupiditate ea excepturi facilis fugit ipsam laborum molestias, natus nemo officia omnis quibusdam quis quos ratione sit unde veritatis voluptatibus. Ad assumenda autem consequatur esse eveniet facilis libero minus nesciunt obcaecati, quod quos, ratione sed sint ut vel.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aliquid amet cupiditate ea excepturi facilis fugit ipsam laborum molestias, natus nemo officia omnis quibusdam quis quos ratione sit unde veritatis voluptatibus. Ad assumenda autem consequatur esse eveniet facilis libero minus nesciunt obcaecati, quod quos, ratione sed sint ut vel.</p>
+    <div>
+      <quill-view-html [content]="post.text"></quill-view-html>
+    </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <p class="text-center">Loading...</p>
+</ng-template>
