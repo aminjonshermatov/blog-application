@@ -12,6 +12,7 @@ import {Subscription} from 'rxjs';
 export class DashboardPageComponent implements OnInit, OnDestroy {
   posts: Post[] = [];
   pSub: Subscription;
+  dSub: Subscription;
   searchStr = '';
 
   constructor(
@@ -28,9 +29,15 @@ export class DashboardPageComponent implements OnInit, OnDestroy {
     if (this.pSub) {
       this.pSub.unsubscribe();
     }
+
+    if (this.dSub) {
+      this.dSub.unsubscribe();
+    }
   }
 
   remove(id: string): void {
-    console.log('removed');
+    this.dSub = this.postsService.remove(id).subscribe(() => {
+      this.posts = this.posts.filter(post => post.id !== id);
+    });
   }
 }
